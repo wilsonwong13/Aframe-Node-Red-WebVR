@@ -1,16 +1,85 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>A-frame</title>
-  <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
-</head>
-<body>
-  <a-scene>
-    <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-    <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-    <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-    <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-    <a-sky color="#ECECEC"></a-sky>
-  </a-scene>
-</body>
+    <head>
+        <script src="./combined.js"></script>
+        <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <a-scene debug keyboard-shortcuts="enterVR: false; resetSensor: false">
+            <a-assets>
+                <canvas id="app" width="1024" height="512"></canvas>
+            </a-assets>
+            <a-sun-sky sun-position-setter>
+                <a-entity id="orbit">
+                  <a-animation attribute="rotation" from="0 0 0" to="0 360 0" dur="3600000" repeat="indefinite" easing="linear"></a-animation>
+                </a-entity>
+            </a-sun-sky>
+            <a-video src="#app" width="1" height="0.5" position="0 1.5 -0.75" transparent="false" opacity="0.5"></a-video>
+            <a-entity id="keyboard" scale="0.01 0.01 0.01" position="-0.15 1.4 -0.44"></a-entity>
+            <!-- <a-plane rotation="270 0 0" width="100" height="100" color="#7BC8A4"></a-plane> -->
+            <!-- <a-sky color="#ececec"></a-sky> -->
+            <a-entity position="0 1.6 -0.2" rotation="-15 0 0">
+                <a-camera position="0 0 0" user-height="0" wasd-controls="enabled: false"></a-camera>
+            </a-entity>
+        </a-scene>
+    </body>
+    <script type="text/javascript">
+        setTimeout(function() {
+      var e = new KeyboardEvent("keypress", {bubbles : true, cancelable : true, key : "Testing This is a message", char : "", shiftKey : true});
+    var f = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "Enter", code: "Enter", keyCode: 13, char : "Enter", shiftKey : true});
+    f.keyCode = 13
+    var g = new KeyboardEvent("keyup", {bubbles : true, cancelable : true, key : "Enter", code: "Enter", keyCode: 13, char : "Enter", shiftKey : true});
+    g.which = 13
+document.body.dispatchEvent(e);
+document.body.dispatchEvent(f)
+        console.log('howdy')
+        }, 3000)
+        setTimeout(function() {
+          $.ajax({
+            method: "POST",
+            url: "https://wilsonwongnodered.mybluemix.net/aframe",
+            xhrFields: {
+              withCredentials: false
+            },
+            data: { "msgdata": "I want to create an object"},
+            dataType: "json",
+            beforeSend: function() {
+              console.log('Sending message')
+            },
+            success: function(results) {
+              console.log('This is your results', results)
+            },
+            error: function(xhr, textStatus, error) {
+              console.log(xhr.statusText);
+              console.log(textStatus);
+              console.log(error);
+            }
+          })
+        }, 5000)
+                setTimeout(function() {
+          $.ajax({
+            method: "POST",
+            url: "https://wilsonwongnodered.mybluemix.net/aframe",
+            xhrFields: {
+              withCredentials: false
+            },
+            data: { "msgdata": "A blue box"},
+            dataType: "json",
+            beforeSend: function() {
+              console.log('Sending message')
+            },
+            success: function(results) {
+              console.log('This is your results', results)
+            },
+            error: function(xhr, textStatus, error) {
+              console.log(xhr.statusText);
+              console.log(textStatus);
+              console.log(error);
+            }
+          })
+        }, 5000)
+    </script>
 </html>
