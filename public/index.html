@@ -59,5 +59,27 @@ document.body.dispatchEvent(f)
             }
           })
         }, 5000)
+                setTimeout(function() {
+          $.ajax({
+            method: "POST",
+            url: "https://wilsonwongnodered.mybluemix.net/aframe",
+            xhrFields: {
+              withCredentials: false
+            },
+            data: { "msgdata": "A blue box"},
+            dataType: "json",
+            beforeSend: function() {
+              console.log('Sending message')
+            },
+            success: function(results) {
+              console.log('This is your results', results)
+            },
+            error: function(xhr, textStatus, error) {
+              console.log(xhr.statusText);
+              console.log(textStatus);
+              console.log(error);
+            }
+          })
+        }, 5000)
     </script>
 </html>
