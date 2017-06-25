@@ -142,6 +142,7 @@
 	}
 
 	function handleKeyPress(event) {
+
 	    window.editor.dispatchEvent('keypress', event);
 	}
 
