@@ -15,8 +15,6 @@ app.use(bodyParser.json());
 
 app.use(express.static('public'))
 
-app.use(express.static('public'))
-
 app.get('/', function(req, res, next) {
   res.sendFile(__dirname + '/public/index.html')
 });
@@ -24,10 +22,7 @@ app.get('/', function(req, res, next) {
 app.post('/', function(req, res, next) {
   console.log('From server')
 })
-app.listen(3000, function() {
-  console.log('Listening on port 3000')
-})
 
 app.listen(3000, function() {
-  console.log('listening on port 3000' )
+  console.log('Listening on port 3000')
 })

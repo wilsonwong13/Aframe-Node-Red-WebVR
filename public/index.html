@@ -27,59 +27,100 @@
         </a-scene>
     </body>
     <script type="text/javascript">
-        setTimeout(function() {
-      var e = new KeyboardEvent("keypress", {bubbles : true, cancelable : true, key : "Testing This is a message", char : "", shiftKey : true});
-    var f = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "Enter", code: "Enter", keyCode: 13, char : "Enter", shiftKey : true});
-    f.keyCode = 13
-    var g = new KeyboardEvent("keyup", {bubbles : true, cancelable : true, key : "Enter", code: "Enter", keyCode: 13, char : "Enter", shiftKey : true});
-    g.which = 13
-document.body.dispatchEvent(e);
-document.body.dispatchEvent(f)
-        console.log('howdy')
-        }, 3000)
-        setTimeout(function() {
-          $.ajax({
-            method: "POST",
-            url: "https://wilsonwongnodered.mybluemix.net/aframe",
-            xhrFields: {
-              withCredentials: false
-            },
-            data: { "msgdata": "I want to create an object"},
-            dataType: "json",
-            beforeSend: function() {
-              console.log('Sending message')
-            },
-            success: function(results) {
-              console.log('This is your results', results)
-            },
-            error: function(xhr, textStatus, error) {
-              console.log(xhr.statusText);
-              console.log(textStatus);
-              console.log(error);
-            }
-          })
-        }, 5000)
-                setTimeout(function() {
-          $.ajax({
-            method: "POST",
-            url: "https://wilsonwongnodered.mybluemix.net/aframe",
-            xhrFields: {
-              withCredentials: false
-            },
-            data: { "msgdata": "A blue box"},
-            dataType: "json",
-            beforeSend: function() {
-              console.log('Sending message')
-            },
-            success: function(results) {
-              console.log('This is your results', results)
-            },
-            error: function(xhr, textStatus, error) {
-              console.log(xhr.statusText);
-              console.log(textStatus);
-              console.log(error);
-            }
-          })
-        }, 5000)
+      var totalString = ''
+
+      function makingRequestToIBM(str) {
+        $.ajax({
+          method: "POST",
+          url: "https://wilsonwongnodered.mybluemix.net/aframe",
+          xhrFields: {
+            withCredentials: false
+          },
+          data: { "msgdata": str},
+          dataType: "json",
+          beforeSend: function() {
+            console.log('Sending message')
+          },
+          success: function(results) {
+          let respone = new KeyboardEvent("keypress", {bubbles : true, cancelable : true, key : 'IBM Watson: ' + results.text[0], char : "", shiftKey : true});
+          let enter = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "Enter", code: "Enter", char : "", shiftKey : true});
+          if(results.text[0].indexOf('make') > 0) {
+            createAShape(results.text[0].slice(results.text[0].indexOf(':') + 2))
+          }else if(results.text[0].indexOf('spinning') > 0) {
+            console.log(results.text[0].slice(results.text[0].indexOf('spinning') + 'spinning'.length))
+            addingProp(results.text[0].slice(results.text[0].indexOf('spinning') + 'spinning'.length + 2))
+          } else if(results.text[0].indexOf('animations') > 0) {
+            let str = results.text[0].slice(results.text[0].indexOf(':') + 2)
+            addingProp(str)
+          }
+          document.body.dispatchEvent(respone)
+          document.body.dispatchEvent(enter)
+          },
+          error: function(xhr, textStatus, error) {
+            console.log(xhr.statusText);
+            console.log(textStatus);
+            console.log(error);
+          }
+        })
+      }
+
+      function addingSping(id) {
+        $(`#${str[0] + str[1]}`).append(`<a-animation attribute="rotation" repeat="indefinite" to="0 360 0">`)
+      }
+
+      function addingProp(str) {
+        let arrayStr = str.split(' ')
+        const action = arrayStr[0]
+        const id = arrayStr[2] + arrayStr[3]
+        console.log('this is the action', action)
+        console.log('this is the id', id)
+        switch(action) {
+          case "rotating":
+            console.log('THIS IS ROTATE')
+            break;
+          case "changing position":
+            console.log('THIS IS POSITION')
+            break;
+          case "changing scale":
+            console.log('THIS IS SCALE')
+            break;
+          case "changing color":
+            console.log('THIS IS COLOR CHANGE')
+            break;
+          case "becoming invisible":
+            console.log('THIS is INVISIBLE')
+            break;
+          default:
+            console.log('ERROR for SWITCH CASE')
+        }
+      }
+
+      function createAShape(str) {
+        let spec = str.split(' ')
+        const color = spec[0]
+        const shape = spec[1]
+        let entity = document.createElement('a-entity');
+        entity.setAttribute("id", color+shape)
+        entity.setAttribute("geometry", `primitive: ${shape};`)
+        entity.setAttribute("material", `color: ${color};`)
+        entity.setAttribute("position", '-2.18 1 -2.04')
+        document.querySelector('a-scene').appendChild(entity)
+      }
+
+      makingRequestToIBM('Hello')
+      window.addEventListener('keydown', keepingTrack);
+
+      function keepingTrack(event) {
+        if(event.key === "Enter") {
+          makingRequestToIBM(totalString)
+          totalString = ''
+        } else if(event.key === "Backspace") {
+          totalString = totalString.substring(0, totalString.length -1)
+          console.log(totalString)
+        }
+        else if(event.key.length === 1) {
+          totalString += event.key
+        }
+      }
     </script>
 </html>

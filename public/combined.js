@@ -83,7 +83,7 @@
 
 
 	    var canvas = document.querySelector('#app');
-	    var doc = new _Document2.default('How can I help you?');
+	    var doc = new _Document2.default('|');
 	    var editor = new _CanvasTextEditor2.default(doc, {
 	        canvas: canvas,
 	        backgroundColor: '#fff',
@@ -126,17 +126,14 @@
 	}
 
 	function handleKeyUp(event) {
-			console.log('key Up', event)
 	    var key = document.querySelector('[data-key="' + event.key.toUpperCase() + '"]');
 	    if (key) {
 	        key.setAttribute('position', 'y', key.baseYPosition);
 	    }
-	    console.log('key up after', key, event)
 	    window.editor.dispatchEvent('keyup', event);
 	}
 
 	function handleKeyDown(event) {
-			console.log('key Down', event)
 	    var key = document.querySelector('[data-key="' + event.key.toUpperCase() + '"]');
 	    if (key) {
 	        key.setAttribute('position', 'y', key.baseYPosition - 1);
@@ -145,7 +142,6 @@
 	}
 
 	function handleKeyPress(event) {
-			console.log('key press', event)
 	    window.editor.dispatchEvent('keypress', event);
 	}
 
