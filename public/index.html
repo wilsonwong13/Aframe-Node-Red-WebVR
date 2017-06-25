@@ -28,7 +28,61 @@
     </body>
     <script type="text/javascript">
       var totalString = ''
+      var totalObjectsMade = []
+      function makingTwitterRequest(name, number) {
+        $.ajax({
+          type: "GET",
+          url: `https://wilsonwongnodered.mybluemix.net/getUserTweets?screen_name=${name}&count=${number}`,
+          success: function(res) {
+            console.log(res)
+            let recievedAllTweets = parseTweets(res)
+            if(number === 100) {
+              makingRequestToInsights(recievedAllTweets)
+            }
+            recievedAllTweets.forEach(function(tweet) {
+             let respone = new KeyboardEvent("keypress", {bubbles : true, cancelable : true, key : 'IBM Watson: ' + tweet, char : "", shiftKey : true});
+            let enter = new KeyboardEvent("keydown", {bubbles : true, cancelable : true, key : "Enter", code: "Enter", char : "", shiftKey : true});
+            document.body.dispatchEvent(respone)
+            document.body.dispatchEvent(enter)
+            })
+          },
+          dataType: "json"
+        })
+      }
 
+      function parseTweets(obj) {
+        let allTweets = []
+        obj.forEach(function(tweet) {
+          allTweets.push(tweet.text)
+        })
+        return allTweets
+      }
+
+      function makingRequestToInsights (str) {
+        str = str.join(',')
+        $.ajax({
+          method: "POST",
+          url: "https://wilsonwongnodered.mybluemix.net/allTweets",
+          xhrFields: {
+            withCredentials: false
+          },
+          data: {"payload": str},
+          beforeSend: function() {
+            console.log('Sending message to Insight')
+          },
+          success: function(results) {
+            console.log("Insight works this is the results", results)
+                document.open("text/html", "replace");
+                document.write(results);
+                document.close();
+          },
+          error: function(xhr, textStatus, error) {
+            console.log(xhr.statusText);
+            console.log(textStatus);
+            console.log(error);
+          }
+        })
+      }
       function makingRequestToIBM(str) {
         $.ajax({
           method: "POST",
@@ -90,35 +144,44 @@
       }
 
       function addingSpinng(id) {
-        $(`#${id}`).append(`<a-animation attribute="rotation" repeat="indefinite" to="0 360 0">`)
+        let newProp = `#${id}`+ ` Animation attribute="rotation" repeat="indefinite" to="0 360 0" `
+        totalObjectsMade.push(newProp)
+        console.log(totalObjectsMade)
+        $(`#${id}`).append(`Animation attribute="rotation" repeat="indefinite" to="0 360 0" `)
       }
 
       function changingPosition(id) {
+        let newProp = `#${id}`+ `Animation  attribute="position" from="-2.18 1 -2.04" to="1 1 1"`
+        totalObjectsMade.push(newProp)
+        console.log(totalObjectsMade)
         $(`#${id}`).append(`<a-animation attribute="position" from="-2.18 1 -2.04" to="1 1 1"></a-animation>`)
-      }
-
-      function changingColor(id) {
-
-      }
-
-      function becomingInvis(id) {
-
-      }
-
-      function changingScale(id) {
-
       }
 
       function createAShape(str) {
         let spec = str.split(' ')
         const color = spec[0]
         const shape = spec[1]
+        let newObject = `Entity id=${color+shape} geometry="primitive: ${shape}" material: "color: ${color}"  position= "-2.18 1 -2.04"`
+        totalObjectsMade.push(newObject)
+        console.log(totalObjectsMade)
         let entity = document.createElement('a-entity');
         entity.setAttribute("id", color+shape)
         entity.setAttribute("geometry", `primitive: ${shape};`)
         entity.setAttribute("material", `color: ${color};`)
         entity.setAttribute("position", '-2.18 1 -2.04')
         document.querySelector('a-scene').appendChild(entity)
+      }
+
+      function printObjectsMade(arr) {
+        let totalString = ''
+        arr.forEach(object => {
+          if(object.indexOf('hatshape') === -1) {
+            totalString +=  '<h2>' + object + '</h2>'
+          }
+        })
+        document.open("text/html", "replace");
+        document.write(totalString);
+        document.close();
       }
 
       makingRequestToIBM('Hello')
@@ -128,8 +191,21 @@
         if(event.key === "Enter") {
           if(totalString.toLowerCase() === 'restart') {
             location.reload();
+          }else if(totalString.indexOf('Twitter') > -1 ) {
+            let arrayOfString = totalString.split(' ')
+            let name = arrayOfString[1]
+            let number = arrayOfString[2]
+            makingTwitterRequest(name, number)
+          } else if(totalString.indexOf('Insight') > -1) {
+            let arrayOfString = totalString.split(' ')
+            let name = arrayOfString[1]
+            makingTwitterRequest(name, 100)
+          } else if(totalString.indexOf('Print') > -1) {
+            printObjectsMade(totalObjectsMade)
           }
-          makingRequestToIBM(totalString)
+          else {
+            makingRequestToIBM(totalString)
+          }
           totalString = ''
         } else if(event.key === "Backspace") {
           totalString = totalString.substring(0, totalString.length -1)
