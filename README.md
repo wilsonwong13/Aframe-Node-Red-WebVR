@@ -23,9 +23,9 @@ Which Shape do you want to play?
 - Ex: Blue Box
 
 What do you want to do with {Blue box}
-- Ex: Spin
+- Ex: Position
 - Current Action with shape
--- Spin or Position
+-- Position
 
 Getting Tweets
 - Twitter {Account Name} {Number of Tweets}
