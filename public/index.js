@@ -9,7 +9,7 @@ window.addEventListener('keydown', keepingTrack)
 function makingTwitterRequest(name, number) {
   $.ajax({
     type: "GET",
-    url: `https://wilsonwongnodered.mybluemix.net/getUserTweets?screen_name=${name}&count=${number}`,
+    url: `https://{blueMixAccount}/getUserTweets?screen_name=${name}&count=${number}`,
     success: function(res) {
       let recievedAllTweets = parseTweets(res)
       if(number === 100) {
@@ -38,7 +38,7 @@ function makingRequestToInsights (str) {
   str = str.join(',')
   $.ajax({
     method: "POST",
-    url: "https://wilsonwongnodered.mybluemix.net/allTweets",
+    url: "https://{blueMixAccount}/allTweets",
     xhrFields: {
       withCredentials: false
     },
@@ -62,7 +62,7 @@ function makingRequestToInsights (str) {
 function makingRequestToIBM(str) {
   $.ajax({
     method: "POST",
-    url: "https://wilsonwongnodered.mybluemix.net/aframe",
+    url: "https://{blueMixAccount}/aframe",
     xhrFields: {
       withCredentials: false
     },

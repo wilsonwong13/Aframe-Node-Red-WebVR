@@ -2,9 +2,9 @@
 
 NYC WebVR Hackathon 2.0 Project
 
-Project Url : https://aframenodered-3df59.firebaseapp.com/
+Project Url : https://aframenodered-570e7.firebaseapp.com/
 
-Using aframe-keyboard, users can interact with IBM Watson Conversation.
+Using Aframe + Node Red, users can perform many actions such as: Interacting with IBM Waston Conversation to generate shapes, Getting Anyone's Tweets, and  Perform Personality Insights on someone Tweets
 
 ## Commands
 To Generate a Shape
@@ -16,6 +16,17 @@ What Shape do you want to make?
 - Current shape that are allow
 -- Box, Cylinder, Cone, Torus
 
+Interact with a Shape
+- Play Shape || Play with Shape || I want to play with a shape
+
+Which Shape do you want to play?
+- Ex: Blue Box
+
+What do you want to do with {Blue box}
+- Ex: Spin
+- Current Action with shape
+-- Spin or Position
+
 Getting Tweets
 - Twitter {Account Name} {Number of Tweets}
 - Ex: Twitter BillNye 5
@@ -23,6 +34,12 @@ Getting Tweets
 Gettting Twitter Insights
 - Insight {Account Name}
 - Ex: Insight BillNye
+
+Getting all the properties of generate shapes
+- Print
+
+Restarting the webpage
+- Restart
 
 ## List of API:
 - Aframe-keyboard : https://github.com/cjroth/aframe-keyboard
