@@ -11,7 +11,6 @@ function makingTwitterRequest(name, number) {
     type: "GET",
     url: `https://wilsonwongnodered.mybluemix.net/getUserTweets?screen_name=${name}&count=${number}`,
     success: function(res) {
-      console.log(res)
       let recievedAllTweets = parseTweets(res)
       if(number === 100) {
         makingRequestToInsights(recievedAllTweets)
@@ -48,7 +47,6 @@ function makingRequestToInsights (str) {
       console.log('Sending message to Insight')
     },
     success: function(results) {
-      console.log("Insight works this is the results", results)
           document.open("text/html", "replace");
           document.write(results);
           document.close();
@@ -110,30 +108,24 @@ function addingProp(str) {
       changingPosition(id)
       break;
     case "changing scale":
-      console.log('THIS IS SCALE')
       break;
     case "changing color":
-      console.log('THIS IS COLOR CHANGE')
       break;
     case "becoming invisible":
-      console.log('THIS is INVISIBLE')
       break;
     default:
-      console.log('ERROR for SWITCH CASE')
   }
 }
 
 function addingSpinng(id) {
   let newProp = `#${id}`+ ` Animation attribute="rotation" repeat="indefinite" to="0 360 0" `
   totalObjectsMade.push(newProp)
-  console.log(totalObjectsMade)
   $(`#${id}`).append(`Animation attribute="rotation" repeat="indefinite" to="0 360 0" `)
 }
 
 function changingPosition(id) {
   let newProp = `#${id}`+ `Animation  attribute="position" from="-2.18 1 -2.04" to="1 1 1"`
   totalObjectsMade.push(newProp)
-  console.log(totalObjectsMade)
   $(`#${id}`).append(`<a-animation attribute="position" from="-2.18 1 -2.04" to="1 1 1"></a-animation>`)
 }
 
@@ -143,7 +135,6 @@ function createAShape(str) {
   const shape = spec[1]
   let newObject = `Entity id=${color+shape} geometry="primitive: ${shape}" material: "color: ${color}"  position= "-2.18 1 -2.04"`
   totalObjectsMade.push(newObject)
-  console.log(totalObjectsMade)
   let entity = document.createElement('a-entity');
   entity.setAttribute("id", color+shape)
   entity.setAttribute("geometry", `primitive: ${shape};`)
@@ -194,7 +185,6 @@ function keepingTrack(event) {
         makingRequestToIBM(totalString)
         break;
       default:
-        console.log('nothing')
         break;
     }
     totalString = ''
