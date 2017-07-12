@@ -77,7 +77,6 @@ function makingRequestToIBM(str) {
     if(results.text[0].indexOf('make') > 0) {
       createAShape(results.text[0].slice(results.text[0].indexOf(':') + 2))
     }else if(results.text[0].indexOf('spinning') > 0) {
-      console.log(results.text[0].slice(results.text[0].indexOf('spinning') + 'spinning'.length))
       addingProp(results.text[0].slice(results.text[0].indexOf('spinning') + 'spinning'.length + 2))
     } else if(results.text[0].indexOf('animations') > 0) {
       let str = results.text[0].slice(results.text[0].indexOf(':') + 2)
@@ -114,6 +113,7 @@ function addingProp(str) {
     case "becoming invisible":
       break;
     default:
+      break;
   }
 }
 
@@ -167,18 +167,18 @@ function keepingTrack(event) {
       case totalString.toLowerCase() === 'restart':
         location.reload()
         break;
-      case totalString.toLowerCase().indexOf('Twitter') > -1:
+      case totalString.indexOf('Twitter') > -1:
         arrayOfString = totalString.split(' ')
         name = arrayOfString[1]
         number = arrayOfString[2]
         makingTwitterRequest(name, number)
         break;
-      case totalString.toLowerCase().indexOf('Insight') > -1:
+      case totalString.indexOf('Insight') > -1:
         arrayOfString = totalString.split(' ')
         name = arrayOfString[1]
         makingTwitterRequest(name, 100)
         break;
-      case totalString.toLowerCase().indexOf('Print') > -1:
+      case totalString.indexOf('Print') > -1:
         printObjectsMade(totalObjectsMade)
         break;
       case totalString.length > 1:
