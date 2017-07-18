@@ -47,3 +47,8 @@ Restarting the webpage
 - Node-Red
 - IBM Waston Conversation / IBM Waston Personality Insights
 - Twitter
+
+
+## Node-Red Setup
+- Twitter Flow: https://flows.nodered.org/flow/162cd122fcdeb2c0f1c6 and https://github.com/wilsonwong13/node-red-labs/tree/master/node-red-twitter-personality
+-- Import twitterInsights to your node-red account
