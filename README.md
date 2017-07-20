@@ -8,7 +8,7 @@ Using Aframe + Node Red, users can perform many actions such as: Interacting wit
 
 ## Commands
 To Generate a Shape
-![Alt text]("https://github.com/wilsonwong13/Aframe-Node-Red-WebVR/blob/master/Images/aframeNodeRedCreateShape.png")
+![Alt text](https://github.com/wilsonwong13/Aframe-Node-Red-WebVR/blob/master/Images/aframeNodeRedCreateShape.png?raw=true "Shape Generation")
 - I want a shape || I want to create an object || I want a create a shape || Give me a shape
 
 What Shape do you want to make?
