@@ -59,5 +59,6 @@ Restarting the webpage
 
 
 ## Node-Red Setup
+![Alt text](https://github.com/wilsonwong13/Aframe-Node-Red-WebVR/blob/master/Images/nodeRedSetup.png?raw=true "Node Red Twitter Setup")
 - Twitter Flow: https://flows.nodered.org/flow/162cd122fcdeb2c0f1c6 and https://github.com/wilsonwong13/node-red-labs/tree/master/node-red-twitter-personality
 -- Import twitterInsights to your node-red account
